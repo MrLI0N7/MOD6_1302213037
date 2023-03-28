@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -15,6 +16,9 @@ namespace modul6_1302213037
 
         public SayaTubeUser(string username)
         {
+            Contract.Requires(username.Length <= 100);
+            Contract.Assert(username !=null);
+
             this.Username = username;
             Random UserID = new Random();
             this.id = UserID.Next(10000, 999999);
@@ -33,7 +37,10 @@ namespace modul6_1302213037
         }
         public void AddVideo(SayaTubeVideo video)
         {
-            uploadedVideos.Add(video);
+            Contract.Requires(video.GetPlayCount()! > 25000000);
+            Contract.Assert(video != null);
+            
+            this.uploadedVideos.Add(video);
         }
         public void PrintAllVideoPlaycount()
         {
